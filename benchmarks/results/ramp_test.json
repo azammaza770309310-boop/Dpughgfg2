@@ -1,0 +1,453 @@
+{
+  "test": "gradual_stress_ramp",
+  "meta": {
+    "date": "2026-10-06 23:34:47 UTC",
+    "server": "http://127.0.0.1:5000",
+    "levels": [
+      10,
+      25,
+      50,
+      100,
+      200,
+      400,
+      800
+    ],
+    "requests_factor": 10,
+    "min_requests": 3000,
+    "reset_between": true,
+    "queue_state_before": {
+      "waiting": 0,
+      "serving": 0,
+      "done": null
+    },
+    "workers": "see run command in VERIFICATION.md (Gunicorn 4 workers x 2 threads unless noted)"
+  },
+  "read_phase": [
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/services",
+      "method": "GET",
+      "requests": 1500,
+      "concurrency": 10,
+      "completed": 1500,
+      "success": 1500,
+      "failed": 0,
+      "status_counts": {
+        "200": 1500
+      },
+      "sample_errors": [],
+      "requests_per_second": 905.25,
+      "wall_time_seconds": 1.657,
+      "latency_ms": {
+        "min": 0.94,
+        "mean": 8.4,
+        "p50": 5.43,
+        "p66": 6.93,
+        "p75": 9.21,
+        "p90": 16.9,
+        "p95": 30.53,
+        "p99": 41.52,
+        "max": 50.74
+      },
+      "label": "read_c10",
+      "level_concurrency": 10
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/services",
+      "method": "GET",
+      "requests": 1500,
+      "concurrency": 25,
+      "completed": 1500,
+      "success": 1500,
+      "failed": 0,
+      "status_counts": {
+        "200": 1500
+      },
+      "sample_errors": [],
+      "requests_per_second": 1012.91,
+      "wall_time_seconds": 1.481,
+      "latency_ms": {
+        "min": 0.99,
+        "mean": 19.54,
+        "p50": 15.01,
+        "p66": 17.28,
+        "p75": 22.43,
+        "p90": 41.64,
+        "p95": 46.87,
+        "p99": 62.1,
+        "max": 78.64
+      },
+      "label": "read_c25",
+      "level_concurrency": 25
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/services",
+      "method": "GET",
+      "requests": 1500,
+      "concurrency": 50,
+      "completed": 1500,
+      "success": 1500,
+      "failed": 0,
+      "status_counts": {
+        "200": 1500
+      },
+      "sample_errors": [],
+      "requests_per_second": 985.48,
+      "wall_time_seconds": 1.522,
+      "latency_ms": {
+        "min": 0.92,
+        "mean": 32.19,
+        "p50": 26.46,
+        "p66": 38.91,
+        "p75": 48.34,
+        "p90": 68.71,
+        "p95": 76.78,
+        "p99": 83.76,
+        "max": 90.33
+      },
+      "label": "read_c50",
+      "level_concurrency": 50
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/services",
+      "method": "GET",
+      "requests": 1500,
+      "concurrency": 100,
+      "completed": 1500,
+      "success": 1500,
+      "failed": 0,
+      "status_counts": {
+        "200": 1500
+      },
+      "sample_errors": [],
+      "requests_per_second": 995.38,
+      "wall_time_seconds": 1.507,
+      "latency_ms": {
+        "min": 1.1,
+        "mean": 37.81,
+        "p50": 30.5,
+        "p66": 49.7,
+        "p75": 59.36,
+        "p90": 83.24,
+        "p95": 90.14,
+        "p99": 100.77,
+        "max": 140.14
+      },
+      "label": "read_c100",
+      "level_concurrency": 100
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/services",
+      "method": "GET",
+      "requests": 1500,
+      "concurrency": 200,
+      "completed": 1500,
+      "success": 1500,
+      "failed": 0,
+      "status_counts": {
+        "200": 1500
+      },
+      "sample_errors": [],
+      "requests_per_second": 1009.75,
+      "wall_time_seconds": 1.486,
+      "latency_ms": {
+        "min": 0.92,
+        "mean": 30.02,
+        "p50": 23.16,
+        "p66": 35.7,
+        "p75": 49.71,
+        "p90": 69.58,
+        "p95": 82.34,
+        "p99": 113.68,
+        "max": 142.21
+      },
+      "label": "read_c200",
+      "level_concurrency": 200
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/services",
+      "method": "GET",
+      "requests": 2000,
+      "concurrency": 400,
+      "completed": 2000,
+      "success": 2000,
+      "failed": 0,
+      "status_counts": {
+        "200": 2000
+      },
+      "sample_errors": [],
+      "requests_per_second": 968.35,
+      "wall_time_seconds": 2.065,
+      "latency_ms": {
+        "min": 0.95,
+        "mean": 85.49,
+        "p50": 65.86,
+        "p66": 106.26,
+        "p75": 139.43,
+        "p90": 203.81,
+        "p95": 243.62,
+        "p99": 284.63,
+        "max": 298.42
+      },
+      "label": "read_c400",
+      "level_concurrency": 400
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/services",
+      "method": "GET",
+      "requests": 4000,
+      "concurrency": 800,
+      "completed": 4000,
+      "success": 4000,
+      "failed": 0,
+      "status_counts": {
+        "200": 4000
+      },
+      "sample_errors": [],
+      "requests_per_second": 975.29,
+      "wall_time_seconds": 4.101,
+      "latency_ms": {
+        "min": 0.95,
+        "mean": 70.21,
+        "p50": 49.51,
+        "p66": 87.7,
+        "p75": 108.84,
+        "p90": 181.5,
+        "p95": 200.62,
+        "p99": 282.15,
+        "max": 305.79
+      },
+      "label": "read_c800",
+      "level_concurrency": 800
+    }
+  ],
+  "write_phase": [
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/tickets",
+      "method": "POST",
+      "requests": 3000,
+      "concurrency": 10,
+      "completed": 3000,
+      "success": 3000,
+      "failed": 0,
+      "status_counts": {
+        "201": 3000
+      },
+      "sample_errors": [],
+      "requests_per_second": 716.44,
+      "wall_time_seconds": 4.187,
+      "latency_ms": {
+        "min": 1.8,
+        "mean": 12.11,
+        "p50": 8.7,
+        "p66": 11.06,
+        "p75": 13.03,
+        "p90": 29.65,
+        "p95": 36.6,
+        "p99": 45.5,
+        "max": 81.08
+      },
+      "label": "write_c10",
+      "level_concurrency": 10
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/tickets",
+      "method": "POST",
+      "requests": 3000,
+      "concurrency": 25,
+      "completed": 3000,
+      "success": 3000,
+      "failed": 0,
+      "status_counts": {
+        "201": 3000
+      },
+      "sample_errors": [],
+      "requests_per_second": 676.86,
+      "wall_time_seconds": 4.432,
+      "latency_ms": {
+        "min": 1.38,
+        "mean": 29.33,
+        "p50": 25.13,
+        "p66": 32.92,
+        "p75": 42.42,
+        "p90": 53.94,
+        "p95": 60.04,
+        "p99": 68.92,
+        "max": 84.43
+      },
+      "label": "write_c25",
+      "level_concurrency": 25
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/tickets",
+      "method": "POST",
+      "requests": 3000,
+      "concurrency": 50,
+      "completed": 3000,
+      "success": 3000,
+      "failed": 0,
+      "status_counts": {
+        "201": 3000
+      },
+      "sample_errors": [],
+      "requests_per_second": 708.32,
+      "wall_time_seconds": 4.235,
+      "latency_ms": {
+        "min": 1.3,
+        "mean": 55.95,
+        "p50": 58.66,
+        "p66": 68.94,
+        "p75": 74.53,
+        "p90": 90.76,
+        "p95": 97.49,
+        "p99": 108.62,
+        "max": 150.79
+      },
+      "label": "write_c50",
+      "level_concurrency": 50
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/tickets",
+      "method": "POST",
+      "requests": 3000,
+      "concurrency": 100,
+      "completed": 3000,
+      "success": 3000,
+      "failed": 0,
+      "status_counts": {
+        "201": 3000
+      },
+      "sample_errors": [],
+      "requests_per_second": 651.86,
+      "wall_time_seconds": 4.602,
+      "latency_ms": {
+        "min": 1.58,
+        "mean": 97.96,
+        "p50": 90.78,
+        "p66": 97.33,
+        "p75": 107.28,
+        "p90": 196.02,
+        "p95": 237.43,
+        "p99": 277.2,
+        "max": 295.48
+      },
+      "label": "write_c100",
+      "level_concurrency": 100
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/tickets",
+      "method": "POST",
+      "requests": 3000,
+      "concurrency": 200,
+      "completed": 3000,
+      "success": 3000,
+      "failed": 0,
+      "status_counts": {
+        "201": 3000
+      },
+      "sample_errors": [],
+      "requests_per_second": 649.97,
+      "wall_time_seconds": 4.616,
+      "latency_ms": {
+        "min": 1.23,
+        "mean": 134.91,
+        "p50": 124.39,
+        "p66": 190.05,
+        "p75": 220.33,
+        "p90": 270.26,
+        "p95": 282.35,
+        "p99": 406.97,
+        "max": 461.91
+      },
+      "label": "write_c200",
+      "level_concurrency": 200
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/tickets",
+      "method": "POST",
+      "requests": 4000,
+      "concurrency": 400,
+      "completed": 4000,
+      "success": 4000,
+      "failed": 0,
+      "status_counts": {
+        "201": 4000
+      },
+      "sample_errors": [],
+      "requests_per_second": 582.44,
+      "wall_time_seconds": 6.868,
+      "latency_ms": {
+        "min": 1.4,
+        "mean": 241.67,
+        "p50": 153.59,
+        "p66": 319.31,
+        "p75": 382.26,
+        "p90": 647.48,
+        "p95": 804.43,
+        "p99": 883.05,
+        "max": 910.68
+      },
+      "label": "write_c400",
+      "level_concurrency": 400
+    },
+    {
+      "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+      "url": "http://127.0.0.1:5000/api/tickets",
+      "method": "POST",
+      "requests": 8000,
+      "concurrency": 800,
+      "completed": 8000,
+      "success": 8000,
+      "failed": 0,
+      "status_counts": {
+        "201": 8000
+      },
+      "sample_errors": [],
+      "requests_per_second": 464.84,
+      "wall_time_seconds": 17.21,
+      "latency_ms": {
+        "min": 1.22,
+        "mean": 730.01,
+        "p50": 592.81,
+        "p66": 1078.99,
+        "p75": 1173.41,
+        "p90": 1689.54,
+        "p95": 1822.06,
+        "p99": 2195.05,
+        "max": 2296.27
+      },
+      "label": "write_c800",
+      "level_concurrency": 800
+    }
+  ],
+  "read_analysis": {
+    "peak_rps": 1012.91,
+    "peak_concurrency": 25,
+    "peak_is_last_level": false,
+    "knee_concurrency": 400,
+    "knee_reason": "throughput fell >10% below peak and/or p95 latency reached 3x the c=10 baseline",
+    "first_failed_requests_concurrency": null,
+    "peak_rps_relative_decline_at_max_level": 0.037
+  },
+  "write_analysis": {
+    "peak_rps": 716.44,
+    "peak_concurrency": 10,
+    "peak_is_last_level": false,
+    "knee_concurrency": 100,
+    "knee_reason": "throughput fell >10% below peak and/or p95 latency reached 3x the c=10 baseline",
+    "first_failed_requests_concurrency": null,
+    "peak_rps_relative_decline_at_max_level": 0.351
+  }
+}

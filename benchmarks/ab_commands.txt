@@ -1,0 +1,37 @@
+Equivalent ApacheBench commands (run from any machine that has `ab`)
+=====================================================================
+
+The official results in the report were produced with
+benchmarks/bench.py (the environment had no `ab` binary). The commands
+below reproduce the same matrix with ApacheBench, including a POST
+payload file.
+
+Prepare the POST body once:
+
+    echo '{"service_code": "it_support", "customer_name": "load-test"}' > /tmp/body.json
+
+Endpoint: GET / (home page)
+    ab -n 200  -c 1  http://127.0.0.1:5000/
+    ab -n 500  -c 10 http://127.0.0.1:5000/
+    ab -n 1000 -c 50 http://127.0.0.1:5000/
+
+Endpoint: GET /api/services (JSON read)
+    ab -n 200  -c 1  http://127.0.0.1:5000/api/services
+    ab -n 500  -c 10 http://127.0.0.1:5000/api/services
+    ab -n 1000 -c 50 http://127.0.0.1:5000/api/services
+
+Endpoint: POST /api/tickets (ticket creation — SQLite write)
+    ab -n 200  -c 1  -p /tmp/body.json -T application/json http://127.0.0.1:5000/api/tickets
+    ab -n 500  -c 10 -p /tmp/body.json -T application/json http://127.0.0.1:5000/api/tickets
+    ab -n 1000 -c 50 -p /tmp/body.json -T application/json http://127.0.0.1:5000/api/tickets
+    ab -n 2000 -c 100 -p /tmp/body.json -T application/json http://127.0.0.1:5000/api/tickets
+
+Between POST levels, reset the demo data if you want comparable runs:
+
+    curl -X POST http://127.0.0.1:5000/api/demo/reset
+
+ab flags used:
+    -n NUM   total number of requests
+    -c NUM   concurrency (parallel requests)
+    -p FILE  POST body file
+    -T TYPE  Content-Type header

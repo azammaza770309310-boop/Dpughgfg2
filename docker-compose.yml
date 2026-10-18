@@ -1,0 +1,21 @@
+# CrowdCloud — single-node deployment
+# Usage:  docker compose up --build     →  http://localhost:5000
+
+services:
+  web:
+    build: .
+    image: crowdcloud:latest
+    container_name: crowdcloud-web
+    ports:
+      - "5000:5000"
+    environment:
+      CROWDCLOUD_DB: /data/crowdcloud.db
+      BUSY_THRESHOLD: "8"     # waiting tickets before BUSY
+      HIGH_THRESHOLD: "16"    # waiting tickets before HIGH LOAD
+      AUTO_SERVE: "0"         # keep the simulator off under gunicorn
+    volumes:
+      - crowdcloud-data:/data
+    restart: unless-stopped
+
+volumes:
+  crowdcloud-data:

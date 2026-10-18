@@ -1,0 +1,41 @@
+# CrowdCloud — horizontal scaling demonstration (nginx load balancer)
+#
+# Starts N application replicas behind nginx:
+#     docker compose -f docker-compose.scale.yml up --build --scale web=2
+#     →  http://localhost:8080
+#
+# ⚠ Educational demo of horizontal scaling, with an honest caveat:
+# all replicas share ONE SQLite file through the same Docker volume.
+# SQLite tolerates this on a single host (WAL + busy_timeout), but a
+# real multi-node deployment would move to PostgreSQL/MySQL or a Redis
+# queue — see the scalability analysis in the project report (W6).
+#
+# The default file starts 2 replicas via `deploy.replicas`.
+
+services:
+  web:
+    build: .
+    image: crowdcloud:latest
+    environment:
+      CROWDCLOUD_DB: /data/crowdcloud.db
+      AUTO_SERVE: "0"
+    volumes:
+      - crowdcloud-scale-data:/data
+    expose:
+      - "5000"
+    deploy:
+      replicas: 2
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: crowdcloud-lb
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - web
+    restart: unless-stopped
+
+volumes:
+  crowdcloud-scale-data:

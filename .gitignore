@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Databases (runtime data — never commit)
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+database/*
+!database/.gitkeep
+
+# Benchmarks runtime artifacts (raw results are committed deliberately,
+# but the server log used during the benchmark run is not)
+benchmarks/server*.log
+benchmarks/*.log
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Local env files
+.env
+.env.*
+gunicorn.log
+
+# Chat attachments (runtime data — never commit)
+uploads/
+!uploads/.gitkeep

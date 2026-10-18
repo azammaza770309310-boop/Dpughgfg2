@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}لوحة الطابور · كراود كلاود{% endblock %}
+
+{% block content %}
+{% set svc_names = {
+  'academic_advising':   'الإرشاد الأكاديمي',
+  'it_support':          'الدعم التقني',
+  'registration_support':'دعم التسجيل',
+  'student_services':    'خدمات الطلاب'
+} %}
+<section class="page-head">
+  <h1 class="display"><span class="gold-text" data-i18n="queue_title">لوحة الطابور</span></h1>
+  <p data-i18n="queue_sub">قوائم الانتظار الحية لكل خدمة — تُحدَّث تلقائيًا.</p>
+  <div class="overall-line">
+    <span data-i18n="stat_overall">الحالة العامة:</span>
+    <span class="load-badge" id="overallBadge" data-load="{{ stats.overall_load }}">{{ stats.overall_load }}</span>
+    <span>·</span>
+    <span><span id="totalWaiting">{{ stats.waiting }}</span> <span data-i18n="waiting_now">في الانتظار</span></span>
+  </div>
+</section>
+
+<section class="queue-grid" id="queueGrid">
+  {% for board in boards %}
+  <article class="queue-card" data-service="{{ board.service.code }}">
+    <header class="card-head">
+      <h2 data-svc-name="{{ board.service.code }}">{{ svc_names.get(board.service.code, board.service.name) }}</h2>
+      <span class="load-badge" data-role="load" data-load="{{ board.service.load }}">{{ board.service.load }}</span>
+    </header>
+
+    <div class="now-serving">
+      <dt data-i18n="now_serving">قيد الخدمة الآن</dt>
+      <dd data-role="serving-count">{{ board.service.serving }}</dd>
+    </div>
+
+    <table class="queue-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th data-i18n="th_ticket">التذكرة</th>
+          <th data-i18n="th_customer">العميل</th>
+          <th data-i18n="th_since">منذ</th>
+        </tr>
+      </thead>
+      <tbody data-role="waiting-body">
+        {% for t in board.waiting %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td class="mono">{{ t.ticket_number }}</td>
+          <td>{{ t.customer_name or '—' }}{% if t.student_id %} <span class="mono muted">({{ t.student_id }})</span>{% endif %}</td>
+          <td class="muted">{{ t.created_at }}</td>
+        </tr>
+        {% else %}
+        <tr class="empty-row"><td colspan="4" data-i18n="empty_queue">لا أحد في الانتظار — الطابور خالٍ.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="queue-count">
+      <strong class="mono" data-role="waiting">{{ board.service.waiting }}</strong>
+      <span data-i18n="waiting_count">في الانتظار</span>
+    </p>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

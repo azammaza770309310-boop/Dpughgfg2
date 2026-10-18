@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block title %}الخدمات · كراود كلاود{% endblock %}
+
+{% block content %}
+{% set svc_meta = {
+  'academic_advising':   {'name_ar': 'الإرشاد الأكاديمي',     'desc_ar': 'اختيار المقررات والخطط الدراسية والاستشارات الأكاديمية.'},
+  'it_support':          {'name_ar': 'الدعم التقني',          'desc_ar': 'دعم حسابات الجامعة والبريد الإلكتروني والبوابات والأنظمة.'},
+  'registration_support':{'name_ar': 'دعم التسجيل',           'desc_ar': 'إضافة وحذف المقررات والجداول ومشكلات التسجيل.'},
+  'student_services':    {'name_ar': 'خدمات الطلاب',          'desc_ar': 'الوثائق الرسمية والخطابات والطلبات العامة.'}
+} %}
+
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-eyebrow">
+      <span class="spark">✦</span>
+      <span data-i18n="hero_eyebrow">تجربة جامعية من الطبقة الأولى</span>
+    </span>
+    <h1 class="display">
+      <span data-i18n="hero_title_1">خدمات الجامعة</span>
+      <span class="gold-text" data-i18n="hero_title_2">بنعمة الانتظار الذكي</span>
+    </h1>
+    <p data-i18n="hero_desc">
+      اختر خدمتك واحصل على تذكرتك فورًا، وتابع دورك لحظة بلحظة — يراقب كراود كلاود ضغط كل
+      خدمة حيًّا، ويتنقل بالحالة من «عادي» إلى «مزدحم» ثم «حمل مرتفع» مع أولوية عادلة
+      بالوصول الأول.
+    </p>
+    <div class="hero-badges" aria-hidden="false">
+      <span class="pill pill-normal" data-i18n="load_normal">عادي</span>
+      <span class="pill pill-busy" data-i18n="load_busy">مزدحم</span>
+      <span class="pill pill-high" data-i18n="load_high">حمل مرتفع</span>
+    </div>
+  </div>
+
+  <div class="hero-stats" id="globalStats" aria-live="polite">
+    <div class="gstat">
+      <span class="gstat-label" data-i18n="stat_overall">الحالة العامة</span>
+      <span class="gstat-value"><span class="load-badge" id="overallBadge" data-load="{{ stats.overall_load }}" data-loadkey="{{ stats.overall_load }}">{{ stats.overall_load }}</span></span>
+    </div>
+    <div class="gstat">
+      <span class="gstat-label" data-i18n="stat_waiting">في الانتظار الآن</span>
+      <span class="gstat-value" id="totalWaiting">{{ stats.waiting }}</span>
+    </div>
+    <div class="gstat">
+      <span class="gstat-label" data-i18n="stat_served">تمت خدمتهم اليوم</span>
+      <span class="gstat-value" id="servedToday">{{ stats.done_today }}</span>
+    </div>
+    <div class="gstat">
+      <span class="gstat-label" data-i18n="stat_tickets">تذاكر اليوم</span>
+      <span class="gstat-value" id="ticketsToday">{{ stats.created_today }}</span>
+    </div>
+  </div>
+</section>
+
+<section class="services-grid" id="servicesGrid">
+  {% for s in services %}
+  {% set meta = svc_meta.get(s.code, {'name_ar': s.name, 'desc_ar': s.description}) %}
+  <article class="service-card" data-service="{{ s.code }}">
+    <header class="card-head">
+      <h2 data-svc-name="{{ s.code }}">{{ meta.name_ar }}</h2>
+      <span class="load-badge" data-role="load" data-load="{{ s.load }}">{{ s.load }}</span>
+    </header>
+    <div class="service-icon" aria-hidden="true">
+      {% if s.code == 'academic_advising' %}
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 9.5L12 4l10 5.5-10 5.5L2 9.5z"/>
+        <path d="M6 12.7V17c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.3"/>
+        <path d="M22 9.5V15"/>
+      </svg>
+      {% elif s.code == 'it_support' %}
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2.5" y="4" width="19" height="13" rx="2"/>
+        <path d="M8.5 21h7M12 17.5V21"/>
+        <path d="M9 12.2c.4.8 1.6 1.3 3 1.3s2.6-.5 3-1.3"/>
+        <path d="M9 9.2V8M15 9.2V8"/>
+      </svg>
+      {% elif s.code == 'registration_support' %}
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="5" width="18" height="16" rx="2.5"/>
+        <path d="M8 3v4M16 3v4M3 10h18"/>
+        <path d="M8.8 15.2l1.9 1.9 3.6-3.9"/>
+      </svg>
+      {% else %}
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8z"/>
+        <path d="M14 3v5h5"/>
+        <circle cx="12" cy="14.5" r="3.2"/>
+        <path d="M13.6 13.2l-1 1.2-.9-.7"/>
+      </svg>
+      {% endif %}
+    </div>
+    <p class="service-desc" data-svc-desc="{{ s.code }}">{{ meta.desc_ar }}</p>
+    <dl class="service-stats">
+      <div><dt data-i18n="card_waiting">انتظار</dt><dd data-role="waiting">{{ s.waiting }}</dd></div>
+      <div><dt data-i18n="card_serving">قيد الخدمة</dt><dd data-role="serving">{{ s.serving }}</dd></div>
+      <div><dt data-i18n="card_done">تم اليوم</dt><dd data-role="done">{{ s.done_today }}</dd></div>
+    </dl>
+    <div class="load-meter" data-role="meter-wrap" title="ضغط الطابور باتجاه «حمل مرتفع»">
+      <div class="load-meter-fill" data-role="meter" style="width: {{ s.load_percent }}%"></div>
+    </div>
+    <p class="thresholds-hint" data-i18n-hint="thresholds" data-busy="{{ s.busy_threshold }}" data-high="{{ s.high_threshold }}">
+      «مزدحم» عند {{ s.busy_threshold }} في الانتظار · «حمل مرتفع» عند {{ s.high_threshold }}
+    </p>
+    <button type="button" class="btn btn-primary btn-block get-ticket"
+            data-code="{{ s.code }}" data-name="{{ meta.name_ar }}">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="7" width="18" height="13" rx="2.5"/>
+        <path d="M7 7V5.5A1.5 1.5 0 0 1 8.5 4h7A1.5 1.5 0 0 1 17 5.5V7M3 12h18"/>
+      </svg>
+      <span data-i18n="get_ticket">احصل على تذكرة</span>
+    </button>
+  </article>
+  {% endfor %}
+</section>
+
+<!-- Get-ticket dialog -->
+<div class="modal-backdrop" id="ticketModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle" data-i18n="modal_title">إصدار تذكرة جديدة</h3>
+    <p class="modal-service" id="modalService">—</p>
+    <form id="ticketForm" novalidate>
+      <label for="customerName">
+        <span data-i18n="modal_name">الاسم</span>
+      </label>
+      <input id="customerName" name="customer_name" type="text" maxlength="60"
+             autocomplete="off" placeholder="مثال: عبدالله" data-i18n-ph="modal_ph">
+      <label for="studentId">
+        <span data-i18n="modal_student_id">الرقم الجامعي</span>
+      </label>
+      <input id="studentId" name="student_id" type="text" inputmode="numeric"
+             maxlength="15" autocomplete="off"
+             placeholder="مثال: 441002357" data-i18n-ph="modal_ph_id">
+      <label for="requestText">
+        <span data-i18n="modal_request">طلبك أو استفسارك</span>
+      </label>
+      <textarea id="requestText" name="request_text" rows="3" maxlength="500"
+                autocomplete="off"
+                placeholder="اكتب باختصار ما تحتاجه: مثال — أعاني من تعطّل حساب الجامعة ولا أستطيع الدخول للبوابة"
+                data-i18n-ph="modal_ph_request"></textarea>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="modalCancel" data-i18n="modal_cancel">إلغاء</button>
+        <button type="submit" class="btn btn-primary" id="modalSubmit" data-i18n="modal_submit">أصدر التذكرة</button>
+      </div>
+      <p class="modal-error" id="modalError" hidden></p>
+    </form>
+  </div>
+</div>
+{% endblock %}

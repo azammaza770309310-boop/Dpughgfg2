@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}لوحة الموظف · كراود كلاود{% endblock %}
+
+{% block content %}
+{% set svc_names = {
+  'academic_advising':   'الإرشاد الأكاديمي',
+  'it_support':          'الدعم التقني',
+  'registration_support':'دعم التسجيل',
+  'student_services':    'خدمات الطلاب'
+} %}
+<section class="page-head">
+  <h1 class="display"><span class="gold-text" data-i18n="admin_title">لوحة الموظف</span></h1>
+  <p data-i18n="admin_sub">نادِ العميل التالي، أكمل أو ألغِ التذاكر — تُطبَّق الإجراءات فورًا وذرّيًا.</p>
+  <div class="overall-line">
+    <span data-i18n="stat_overall">الحالة العامة:</span>
+    <span class="load-badge" id="overallBadge" data-load="{{ stats.overall_load }}">{{ stats.overall_load }}</span>
+  </div>
+</section>
+
+<section class="admin-grid" id="adminGrid">
+  {% for section in sections %}
+  <article class="admin-card" data-service="{{ section.service.code }}">
+    <header class="card-head">
+      <h2 data-svc-name="{{ section.service.code }}">{{ svc_names.get(section.service.code, section.service.name) }}</h2>
+      <span class="load-badge" data-role="load" data-load="{{ section.service.load }}">{{ section.service.load }}</span>
+    </header>
+
+    <div class="admin-stats">
+      <span><strong data-role="waiting">{{ section.service.waiting }}</strong> <span data-i18n="st_waiting">في الانتظار</span></span>
+      <span><strong data-role="serving">{{ section.service.serving }}</strong> <span data-i18n="st_serving">قيد الخدمة</span></span>
+      <span><strong data-role="done">{{ section.service.done_today }}</strong> <span data-i18n="st_done">تم اليوم</span></span>
+    </div>
+
+    <div class="admin-actions">
+      <button type="button" class="btn btn-primary call-next"
+              data-code="{{ section.service.code }}">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/>
+          <path d="M18 3v4h-4M6 21v-4h4"/>
+        </svg>
+        <span data-i18n="call_next">نادِ التالي</span>
+      </button>
+      <button type="button" class="btn btn-ghost refresh-card" data-code="{{ section.service.code }}">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12a9 9 0 1 1-2.6-6.4M21 3v6h-6"/>
+        </svg>
+        <span data-i18n="refresh">تحديث</span>
+      </button>
+    </div>
+
+    <table class="queue-table admin-table">
+      <thead>
+        <tr>
+          <th data-i18n="th_ticket">التذكرة</th>
+          <th data-i18n="th_customer">العميل</th>
+          <th data-i18n="th_status">الحالة</th>
+          <th data-i18n="th_actions">الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody data-role="tickets-body">
+        {% for t in section.tickets %}
+        <tr data-number="{{ t.ticket_number }}">
+          <td class="mono">{{ t.ticket_number }}</td>
+          <td>{{ t.customer_name or '—' }}{% if t.student_id %} <span class="mono muted">({{ t.student_id }})</span>{% endif %}{% if t.request_text %}<div class="req-line" title="{{ t.request_text }}">📄 {{ t.request_text[:34] }}{% if t.request_text|length > 34 %}…{% endif %}</div>{% endif %}</td>
+          <td><span class="status-pill status-{{ t.status|lower }}" data-status="{{ t.status }}">{{ t.status }}</span></td>
+          <td class="row-actions">
+            {% if t.status == 'WAITING' %}
+            <button class="mini-btn act-serve" data-number="{{ t.ticket_number }}" data-i18n="btn_serve">خدمة</button>
+            <button class="mini-btn act-cancel" data-number="{{ t.ticket_number }}" data-i18n="btn_cancel">إلغاء</button>
+            {% elif t.status == 'SERVING' %}
+            <button class="mini-btn act-complete" data-number="{{ t.ticket_number }}" data-i18n="btn_complete">إكمال</button>
+            {% else %}
+            <span class="muted">—</span>
+            {% endif %}
+            <a class="mini-btn act-chat" href="/chat/{{ t.ticket_number }}?staff=1" data-i18n="btn_chat">محادثة</a>
+          </td>
+        </tr>
+        {% else %}
+        <tr class="empty-row"><td colspan="4" data-i18n="empty_admin">لا تذاكر بعد.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

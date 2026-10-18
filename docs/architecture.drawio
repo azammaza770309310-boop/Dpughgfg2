@@ -1,0 +1,112 @@
+<mxfile host="app.diagrams.net" agent="CrowdCloud project" version="24.7.7">
+  <diagram id="crowdcloud-architecture" name="CrowdCloud Architecture">
+    <mxGraphModel dx="1240" dy="1120" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1240" pageHeight="1180" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- =================== title =================== -->
+        <mxCell id="title" value="CrowdCloud — Cloud Architecture" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#111827;" vertex="1" parent="1">
+          <mxGeometry x="220" y="20" width="800" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Single-container deployment (docker-compose.yml) · numbered request / data flow · scale-out scenario below" style="text;html=1;align=center;fontSize=11;fontColor=#6B7280;" vertex="1" parent="1">
+          <mxGeometry x="220" y="52" width="800" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- =================== users / clients zone =================== -->
+        <mxCell id="clientsZone" value="Users / Clients" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#CBD5E1;dashed=1;verticalAlign=top;align=left;spacing=10;fontColor=#475569;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="90" width="780" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="student" value="&lt;b&gt;Student Browser&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#6B7280&quot;&gt;Service page · ticket tracking (polls every 3–5 s)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="250" y="130" width="230" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="staff" value="&lt;b&gt;Staff Console&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#6B7280&quot;&gt;Admin panel: call next · complete · cancel&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#F59E0B;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="505" y="130" width="230" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="tooling" value="&lt;b&gt;Load-Test Client&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#6B7280&quot;&gt;curl · bench.py (ab-equivalent) · ApacheBench&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F3FF;strokeColor=#8B5CF6;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="760" y="130" width="230" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- =================== docker host zone =================== -->
+        <mxCell id="dockerZone" value="Docker Host (cloud node) — docker-compose service &quot;web&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#94A3B8;dashed=1;verticalAlign=top;align=left;spacing=10;fontColor=#334155;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="340" width="1060" height="470" as="geometry" />
+        </mxCell>
+
+        <!-- app container -->
+        <mxCell id="app" value="Flask Application Container — Gunicorn WSGI (4 workers × 2 threads, image python:3.12-slim)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#3B82F6;strokeWidth=2.5;verticalAlign=top;fontColor=#1E3A8A;fontSize=13;fontStyle=1;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="290" y="380" width="660" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="views" value="&lt;b&gt;Routes &amp; Views&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#475569&quot;&gt;HTML pages rendered with Jinja2 templates&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#93C5FD;" vertex="1" parent="1">
+          <mxGeometry x="310" y="430" width="310" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="api" value="&lt;b&gt;REST API /api/*&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#475569&quot;&gt;JSON endpoints: tickets, services, stats&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#93C5FD;" vertex="1" parent="1">
+          <mxGeometry x="640" y="430" width="290" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="queue" value="&lt;b&gt;Queue Manager&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#475569&quot;&gt;Ticket lifecycle · FIFO · atomic claims (guarded SQL)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#93C5FD;" vertex="1" parent="1">
+          <mxGeometry x="310" y="522" width="310" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="monitor" value="&lt;b&gt;Load Monitor&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#475569&quot;&gt;Waiting count vs thresholds (8 / 16) → load level&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#93C5FD;" vertex="1" parent="1">
+          <mxGeometry x="640" y="522" width="290" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- data layer -->
+        <mxCell id="sqlite" value="SQLite Database&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#475569&quot;&gt;crowdcloud.db · WAL journal · busy_timeout 15 s&lt;/font&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#F0FDF4;strokeColor=#10B981;strokeWidth=2;fontColor=#065F46;" vertex="1" parent="1">
+          <mxGeometry x="360" y="690" width="300" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="volume" value="&lt;b&gt;Docker Volume&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#475569&quot;&gt;crowdcloud-data — tickets survive restarts&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#10B981;dashed=1;strokeWidth=2;fontColor=#065F46;" vertex="1" parent="1">
+          <mxGeometry x="760" y="700" width="250" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- =================== edges: main flow =================== -->
+        <mxCell id="eClientsApp" value="HTTP · JSON / HTML · port 5000&#10;flows 1 (POST /api/tickets) · 5 (polling) · 7 (staff actions)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#94A3B8;strokeWidth=2.2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#475569;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="clientsZone" target="app">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eAppDb" value="2 · SQL transaction (counter + INSERT)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#94A3B8;strokeWidth=2.2;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=10;fontColor=#475569;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="app" target="sqlite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eDbVol" value="3 · DB file on volume" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#94A3B8;strokeWidth=2.2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;fontColor=#475569;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="sqlite" target="volume">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eReturn" value="4 · ticket JSON · 6 · load status (NORMAL / BUSY / HIGH LOAD)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#F59E0B;strokeWidth=2;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fontSize=10;fontColor=#B45309;labelBackgroundColor=#FFFFFF;" edge="1" parent="1" source="app" target="clientsZone">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="500" />
+              <mxPoint x="150" y="175" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- =================== scale-out scenario =================== -->
+        <mxCell id="scaleZone" value="Horizontal scale-out — docker-compose.scale.yml (nginx + web replicas)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#A5B4FC;dashed=1;verticalAlign=top;align=left;spacing=10;fontColor=#4338CA;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="850" width="1060" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="clients2" value="&lt;b&gt;Clients&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F3FF;strokeColor=#8B5CF6;strokeWidth=2;fontColor=#5B21B6;" vertex="1" parent="1">
+          <mxGeometry x="120" y="900" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="nginx" value="&lt;b&gt;Nginx Load Balancer&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#475569&quot;&gt;:8080 → round-robin upstream&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF7ED;strokeColor=#F59E0B;strokeWidth=2;fontColor=#92400E;" vertex="1" parent="1">
+          <mxGeometry x="330" y="895" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="replica1" value="&lt;b&gt;web replica 1&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#475569&quot;&gt;Flask + Gunicorn&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF2FF;strokeColor=#6366F1;dashed=1;strokeWidth=2;fontColor=#3730A3;" vertex="1" parent="1">
+          <mxGeometry x="610" y="895" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="replicaN" value="&lt;b&gt;web replica N&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#475569&quot;&gt;shared volume (SQLite)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEF2FF;strokeColor=#6366F1;dashed=1;strokeWidth=2;fontColor=#3730A3;" vertex="1" parent="1">
+          <mxGeometry x="870" y="895" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="eC2N" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#94A3B8;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="clients2" target="nginx">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eN2R1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#94A3B8;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="nginx" target="replica1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eN2RN" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#94A3B8;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="replica1" target="replicaN">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- =================== flow legend =================== -->
+        <mxCell id="legend" value="&lt;b&gt;Request / data flow&lt;/b&gt;&lt;br&gt;&lt;b&gt;1 · Create ticket:&lt;/b&gt; client → POST /api/tickets (service chosen, optional name)&lt;br&gt;&lt;b&gt;2 · Queue Manager&lt;/b&gt; issues the next number in one atomic transaction (counter + insert)&lt;br&gt;&lt;b&gt;3 · Persist:&lt;/b&gt; ticket row written to SQLite on the Docker volume (WAL mode)&lt;br&gt;&lt;b&gt;4 · Response:&lt;/b&gt; JSON with ticket number, queue position, estimated wait&lt;br&gt;&lt;b&gt;5 · Live updates:&lt;/b&gt; browser polls GET /api/services &amp; ticket status every 3–5 s&lt;br&gt;&lt;b&gt;6 · Load Monitor:&lt;/b&gt; waiting count → thresholds → NORMAL / BUSY / HIGH LOAD badge&lt;br&gt;&lt;b&gt;7 · Staff actions:&lt;/b&gt; call next / complete / cancel → guarded status transitions&lt;br&gt;&lt;b&gt;8 · Health check:&lt;/b&gt; orchestrator probes GET /healthz (Docker HEALTHCHECK, LB probes)&lt;br&gt;&lt;font style=&quot;font-size:10px&quot; color=&quot;#6B7280&quot;&gt;Editable source: open this file in diagrams.net (app.diagrams.net)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#E5E7EB;align=left;verticalAlign=top;spacing=12;fontColor=#374151;fontSize=11;spacingLeft=14;" vertex="1" parent="1">
+          <mxGeometry x="90" y="1010" width="1060" height="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

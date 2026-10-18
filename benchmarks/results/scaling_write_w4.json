@@ -1,0 +1,28 @@
+{
+  "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+  "url": "http://127.0.0.1:5001/api/tickets",
+  "method": "POST",
+  "requests": 500,
+  "concurrency": 25,
+  "completed": 500,
+  "success": 500,
+  "failed": 0,
+  "status_counts": {
+    "201": 500
+  },
+  "sample_errors": [],
+  "requests_per_second": 903.39,
+  "wall_time_seconds": 0.553,
+  "latency_ms": {
+    "min": 1.58,
+    "mean": 24.3,
+    "p50": 20.88,
+    "p66": 22.76,
+    "p75": 25.33,
+    "p90": 45.52,
+    "p95": 47.61,
+    "p99": 50.49,
+    "max": 54.26
+  },
+  "label": "write_w4"
+}

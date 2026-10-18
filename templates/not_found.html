@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}غير موجودة · كراود كلاود{% endblock %}
+
+{% block content %}
+<section class="page-head center">
+  <h1 class="display"><span class="gold-text" data-i18n="nf_title">التذكرة غير موجودة</span></h1>
+  <p data-i18n="nf_desc">لا توجد تذكرة بهذا الرقم — ربما أُزيلت بعد تصفير قاعدة البيانات.</p>
+  <p class="overall-line" style="justify-content:center;">
+    <span class="mono">{{ ticket_number }}</span>
+  </p>
+  <p style="margin-top:18px;">
+    <a class="btn btn-primary" href="{{ url_for('views.index') }}" data-i18n="nf_back">العودة إلى الخدمات</a>
+  </p>
+</section>
+{% endblock %}

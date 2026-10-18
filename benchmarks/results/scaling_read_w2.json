@@ -1,0 +1,28 @@
+{
+  "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+  "url": "http://127.0.0.1:5001/api/services",
+  "method": "GET",
+  "requests": 1000,
+  "concurrency": 50,
+  "completed": 1000,
+  "success": 1000,
+  "failed": 0,
+  "status_counts": {
+    "200": 1000
+  },
+  "sample_errors": [],
+  "requests_per_second": 932.11,
+  "wall_time_seconds": 1.073,
+  "latency_ms": {
+    "min": 2.48,
+    "mean": 49.12,
+    "p50": 41.19,
+    "p66": 63.34,
+    "p75": 64.69,
+    "p90": 66.6,
+    "p95": 67.75,
+    "p99": 68.37,
+    "max": 68.89
+  },
+  "label": "read_w2"
+}

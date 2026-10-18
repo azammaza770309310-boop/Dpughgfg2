@@ -1,0 +1,50 @@
+--------------------------------------------------------------------------------
+CrowdCloud demo scenario — service: IT Support
+Thresholds: BUSY at 8 waiting tickets, HIGH LOAD at 16 (defaults).
+--------------------------------------------------------------------------------
+
+== STEP 0 — clean state
+  Academic Advising        waiting=  0   in-service= 0   load=NORMAL
+  IT Support               waiting=  0   in-service= 0   load=NORMAL
+  Registration Support     waiting=  0   in-service= 0   load=NORMAL
+  Student Services         waiting=  0   in-service= 0   load=NORMAL
+  OVERALL: waiting=0  overall load = NORMAL
+
+== STEP 1 — low load: issue 3 tickets (NORMAL expected)
+  Academic Advising        waiting=  0   in-service= 0   load=NORMAL
+  IT Support               waiting=  3   in-service= 0   load=NORMAL
+  Registration Support     waiting=  0   in-service= 0   load=NORMAL
+  Student Services         waiting=  0   in-service= 0   load=NORMAL
+  OVERALL: waiting=3  overall load = NORMAL
+
+== STEP 2 — load grows: +5 tickets = 8 waiting (BUSY expected)
+  Academic Advising        waiting=  0   in-service= 0   load=NORMAL
+  IT Support               waiting=  8   in-service= 0   load=BUSY
+  Registration Support     waiting=  0   in-service= 0   load=NORMAL
+  Student Services         waiting=  0   in-service= 0   load=NORMAL
+  OVERALL: waiting=8  overall load = BUSY
+
+== STEP 3 — peak: +8 tickets = 16 waiting (HIGH LOAD expected)
+  Academic Advising        waiting=  0   in-service= 0   load=NORMAL
+  IT Support               waiting= 16   in-service= 0   load=HIGH LOAD
+  Registration Support     waiting=  0   in-service= 0   load=NORMAL
+  Student Services         waiting=  0   in-service= 0   load=NORMAL
+  OVERALL: waiting=16  overall load = HIGH LOAD
+
+== STEP 4 — staff serves customers: 3 completed (de-escalation)
+  Academic Advising        waiting=  0   in-service= 0   load=NORMAL
+  IT Support               waiting= 13   in-service= 0   load=BUSY
+  Registration Support     waiting=  0   in-service= 0   load=NORMAL
+  Student Services         waiting=  0   in-service= 0   load=NORMAL
+  OVERALL: waiting=13  overall load = BUSY
+
+== STEP 5 — other services stay independent (issue 1 ticket each)
+  Academic Advising        waiting=  1   in-service= 0   load=NORMAL
+  IT Support               waiting= 13   in-service= 0   load=BUSY
+  Registration Support     waiting=  1   in-service= 0   load=NORMAL
+  Student Services         waiting=  1   in-service= 0   load=NORMAL
+  OVERALL: waiting=16  overall load = BUSY
+
+== DONE — leave the queue draining or reset with:
+  curl -X POST http://127.0.0.1:5000/api/demo/reset
+--------------------------------------------------------------------------------

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#04060c">
+  <title>{% block title %}كراود كلاود · نظام الطوابير الذكي{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d4af37'%3E%3Cpath d='M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z'/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="bg-scene" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{ url_for('views.index') }}">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+          <path d="M7 15l1.8-2.6a.6.6 0 0 1 1 0L12 15.5l1.4-1.9a.6.6 0 0 1 1 0L16 15.5" stroke-width="1.3"/>
+          <path d="M17.5 7.5l.9-1.6M20 9.5l1.6-.9" stroke-width="1.2"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong data-i18n="brand_name">كراود كلاود</strong>
+        <small data-i18n="brand_sub">منظومة الطوابير الذكية للخدمات الجامعية</small>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="التنقل الرئيسي">
+      <a href="{{ url_for('views.index') }}" class="nav-link" data-i18n="nav_home">الخدمات</a>
+      <a href="{{ url_for('views.queue_board') }}" class="nav-link" data-i18n="nav_queue">لوحة الطابور</a>
+      <a href="{{ url_for('views.admin') }}" class="nav-link" data-i18n="nav_admin">لوحة الموظف</a>
+    </nav>
+    <button type="button" class="lang-btn" id="langToggle" aria-label="Switch language">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/>
+      </svg>
+      <span id="langLabel">EN</span>
+    </button>
+  </div>
+</header>
+
+<main class="container">
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span data-i18n="footer_line">كراود كلاود</span>
+    <span class="gold-dot">◆</span>
+    <span data-i18n="footer_course">الحوسبة السحابية والأنظمة الموزعة (3CCN314)</span>
+    <span class="gold-dot">◆</span>
+    <span data-i18n="footer_mode">نموذج عملي حي — عادي / مزدحم / حمل مرتفع</span>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

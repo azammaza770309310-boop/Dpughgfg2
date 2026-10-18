@@ -1,0 +1,27 @@
+{
+  "tool": "crowdcloud-bench/1.0 (Python stdlib, ab-equivalent)",
+  "url": "http://127.0.0.1:81/healthz",
+  "method": "GET",
+  "requests": 500,
+  "concurrency": 10,
+  "completed": 500,
+  "success": 500,
+  "failed": 0,
+  "status_counts": {
+    "200": 500
+  },
+  "sample_errors": [],
+  "requests_per_second": 230.56,
+  "wall_time_seconds": 2.169,
+  "latency_ms": {
+    "min": 6.81,
+    "mean": 42.95,
+    "p50": 36.68,
+    "p66": 47.08,
+    "p75": 49.67,
+    "p90": 56.11,
+    "p95": 78.09,
+    "p99": 134.46,
+    "max": 140.55
+  }
+}
